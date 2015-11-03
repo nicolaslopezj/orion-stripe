@@ -16,6 +16,17 @@ i18n.map('en', {
       cvc: 'CVC',
       expMonth: 'Exp. Month',
       expYear: 'Exp. Year'
+    },
+    charges: {
+      title: 'Charges',
+      noCharges: 'No charges',
+      table: {
+        amount: 'Amount',
+        description: 'Description',
+        date: 'Date',
+        card: 'Card',
+        noDescription: 'No description'
+      }
     }
   }
 });

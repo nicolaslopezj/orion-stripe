@@ -10,18 +10,23 @@ orion.links.add({
 });
 
 orion.links.add({
-  activeRouteRegex: 'orionStripe',
-  identifier: 'orionStripe-history',
+  activeRouteRegex: 'orionStripe.charges',
+  routeName: 'orionStripe.charges',
+  identifier: 'orionStripe-charges',
   parent: 'orionStripe',
   index: 1,
   title: 'Transacciones'
 });
 
 orion.links.add({
-  activeRouteRegex: 'orionStripe',
+  activeRouteRegex: 'orionStripe.cards',
   routeName: 'orionStripe.cards',
   identifier: 'orionStripe-cards',
   parent: 'orionStripe',
   index: 2,
   title: 'Tarjetas'
+});
+
+Template.registerHelper('stripe_formatAmount', function(amount, currency) {
+  return orion.stripe.formatAmount(amount, currency);
 });

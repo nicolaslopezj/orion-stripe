@@ -4,6 +4,10 @@ ReactiveTemplates.onCreated('orionStripe.cards', function() {
   this.subscribe('orionStripe_myCards');
 });
 
+ReactiveTemplates.onRendered('orionStripe.cards', function() {
+  Meteor.call('orionStripe_syncMe');
+});
+
 ReactiveTemplates.helpers('orionStripe.cards', {
   cards: function() {
     return orion.stripe.cards.find({ 'metadata.userId': Meteor.userId() });

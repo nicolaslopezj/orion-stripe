@@ -1,0 +1,57 @@
+<template name="orionStripeChargesMaterialize">
+  {{# Layout template=materializeHeader }}
+    {{ i18n 'orionStripe.charges.title' }}
+  {{/ Layout }}
+  {{# Layout template=materializeContent }}
+    {{# if Template.subscriptionsReady }}
+      {{# if charges }}
+        <table>
+          <thead>
+            <tr>
+              <th>
+                {{ i18n 'orionStripe.charges.table.amount' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.charges.table.description' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.charges.table.card' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.charges.table.date' }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{# each charges }}
+              <tr>
+                <td>
+                  {{ stripe_formatAmount amount currency }}
+                </td>
+                <td>
+                  {{# if description }}
+                    {{ description }}
+                  {{ else }}
+                    <span class="grey-text"><i>{{ i18n 'orionStripe.charges.table.noDescription' }}</i></span>
+                  {{/ if }}
+                </td>
+                <td>
+                  {{ source.brand }} {{ source.last4 }}
+                </td>
+                <td>
+                  {{ getDate }}
+                </td>
+              </tr>
+            {{/ each }}
+          </tbody>
+        </table>
+      {{ else }}
+        <p>
+          <b>{{ i18n 'orionStripe.charges.noCharges' }}</b>
+        </p>
+      {{/ if }}
+    {{ else }}
+      {{> loading }}
+    {{/ if }}
+  {{/ Layout }}
+</template>

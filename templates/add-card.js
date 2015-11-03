@@ -16,8 +16,15 @@ addCardSubmit = function(callback) {
       Meteor.call('orionStripe_addCardMe', response.id, function(error, response) {
         if (error) {
           Session.set('orionStripe_addCard_errors', error.reason);
-        } else if (_.isFunction(callback)) {
-          callback();
+        } else {
+          if (_.isFunction(callback)) {
+            callback();
+          }
+          $('#card-number').val('');
+          $('#card-cvc').val('');
+          $('#card-expiry-month').val('');
+          $('#card-expiry-year').val('');
+          Session.set('orion_autoformLoading', false);
         }
       });
     }

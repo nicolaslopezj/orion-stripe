@@ -11,11 +11,15 @@ Package.onUse(function(api) {
   api.use([
     'meteor-platform',
     'orionjs:core@1.6.0',
-    'copleykj:stripe-sync@2.0.5'
+    'copleykj:stripe-sync@2.0.5',
+    'numeral:numeral@1.5.1',
+    'momentjs:moment@2.10.6'
   ]);
 
   api.imply([
-    'copleykj:stripe-sync'
+    'copleykj:stripe-sync',
+    'numeral:numeral',
+    'momentjs:moment'
   ]);
 
   api.addFiles([
@@ -28,7 +32,8 @@ Package.onUse(function(api) {
   api.addFiles([
     'init_server.js',
     'methods.js',
-    'publications.js'
+    'publications.js',
+    'charge.js'
   ], 'server');
 
   api.addFiles([
@@ -36,7 +41,9 @@ Package.onUse(function(api) {
     'templates/cards.html',
     'templates/cards.js',
     'templates/add-card.html',
-    'templates/add-card.js'
+    'templates/add-card.js',
+    'templates/charges.html',
+    'templates/charges.js'
   ], 'client');
 
 });

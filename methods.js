@@ -16,8 +16,16 @@ Meteor.methods({
     }
     user = Meteor.users.findOne(user._id);
 
-    var userCards = orion.stripe.api.customers.listCards(user.services.stripe.id);
-    console.log(userCards);
+    var cardsResponse = orion.stripe.api.customers.listCards(user.services.stripe.id);
+    var cardsIds = _.pluck(cardsResponse.data, 'id');
+    if (cardsIds) {
+      orion.stripe.cards.remove({ 'metadata.userId': user._id, id: { $nin: cardsIds } });
+      _.each(cardsResponse.data, function(card) {
+        orion.stripe.cards.update({ id: card.id }, { $set: card });
+      });
+    } else {
+      orion.stripe.cards.remove({ 'metadata.userId': user._id });
+    }
   },
   orionStripe_addCardMe: function(token) {
     check(token, String);
@@ -49,7 +57,7 @@ Meteor.methods({
       throw new Meteor.Error('no-stripe-service', 'The user has no stripe connection');
     }
 
-    var response = stripe.customers.deleteCard(user.services.stripe.id, card.id);
+    var response = orion.stripe.api.customers.deleteCard(user.services.stripe.id, card.id);
     if (response.deleted) {
       return orion.stripe.cards.remove(cardId);
     }
