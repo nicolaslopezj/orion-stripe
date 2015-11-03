@@ -1,0 +1,27 @@
+<template name="orionStripeAddCardMaterialize">
+  <div class="row">
+    {{# if error }}
+      <div class="col s12">
+        <p class="red-text">
+          {{ error }}
+        </p>
+      </div>
+    {{/ if }}
+    <div class="col s12 input-field">
+      <input type="text" name="number" id="card-number">
+      <label for="card-number">{{ i18n 'orionStripe.addCard.cardNumber' }}</label>
+    </div>
+    <div class="col s12 m4 input-field">
+      <input type="text" name="cvv" id="card-cvc">
+      <label for="card-cvc">{{ i18n 'orionStripe.addCard.cvc' }}</label>
+    </div>
+    <div class="col s6 m4 input-field">
+      <input type="text" name="expMonth" id="card-expiry-month">
+      <label for="card-expiry-month">{{ i18n 'orionStripe.addCard.expMonth' }}</label>
+    </div>
+    <div class="col s6 m4 input-field">
+      <input type="text" name="expYear" id="card-expiry-year">
+      <label for="card-expiry-year">{{ i18n 'orionStripe.addCard.expYear' }}</label>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,70 @@
+<template name="orionStripeCardsMaterialize">
+  {{# Layout template=materializeHeader }}
+    {{ i18n 'orionStripe.cards.title' }}
+  {{/ Layout }}
+  {{# Layout template=materializeContent }}
+    <div class="floating-btn-onheader">
+      <a href="#" class="btn-floating btn-large waves-effect waves-light red right add-card-btn">
+        <i class="mdi-content-add"></i>
+      </a>
+    </div>
+    {{# if Template.subscriptionsReady }}
+      {{# if cards }}
+        <table>
+          <thead>
+            <tr>
+              <th>
+                {{ i18n 'orionStripe.cards.table.brand' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.cards.table.last4' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.cards.table.funding' }}
+              </th>
+              <th>
+                {{ i18n 'orionStripe.cards.table.actions' }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{# each cards }}
+              <tr>
+                <td>
+                  {{ brand }}
+                </td>
+                <td>
+                  {{ last4 }}
+                </td>
+                <td>
+                  <span class="label label-small red">{{ funding }}</span>
+                </td>
+                <td>
+                  {{# if hasPermissionToDelete }}
+                    <button class="btn btn-small delete-card-btn">{{ i18n 'global.delete' }}</button>
+                  {{/ if }}
+                </td>
+              </tr>
+            {{/ each }}
+          </tbody>
+        </table>
+      {{ else }}
+        <p>
+          <b>{{ i18n 'orionStripe.cards.noCards' }}</b>
+        </p>
+      {{/ if }}
+    {{ else }}
+      {{> loading }}
+    {{/ if }}
+  {{/ Layout }}
+  <div id="add-card-modal" class="modal">
+    <div class="modal-content">
+      <h4>{{ i18n 'orionStripe.addCard.title' }}</h4>
+      {{> reactiveTemplate template='orionStripe.addCard' }}
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="modal-action waves-effect waves-light btn add-card-save {{ orion_autoformLoading }}" style="margin-left: 10px;">{{ i18n 'global.save' }}</a>
+      <a href="#" class="modal-action modal-close waves-light btn {{ orion_autoformLoading }}">{{ i18n 'global.cancel' }}</a>
+    </div>
+  </div>
+</template>
